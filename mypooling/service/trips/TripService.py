@@ -1,14 +1,6 @@
-#
-# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
-# Created on: 22/01/23
-# Created at: 02:35
-# Version: 1.0.0
-# Description: This is the class for the user service
-#
 import datetime
 
 from flask import jsonify
-
 from mypooling.model.entity.Ride import Ride
 from mypooling.model.entity.Step import Step
 from mypooling.model.entity.Trip import Trip
@@ -18,6 +10,14 @@ from mypooling.service.StepService import StepService
 from mypooling.service.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
+
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 17:34
+# Version: 1.0.0
+# Description: This is the class for the trip service
+#
 
 
 class TripService():

@@ -2,6 +2,14 @@ from mypooling.configuration.config import sql
 from mypooling.model.entity.Ride import Ride
 from mypooling.model.entity.User import User
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 18:34
+# Version: 1.0.0
+# Description: This is the class for the ride repository
+#
+
 
 class RideRepository():
 

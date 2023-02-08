@@ -1,7 +1,13 @@
 from mypooling.configuration.config import sql
 from mypooling.model.entity.Feedback import Feedback
-from mypooling.model.entity.Ride import Ride
-from mypooling.model.entity.User import User
+
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 09/02/23
+# Created at: 00:14
+# Version: 1.0.0
+# Description: This is the class for the feedback repository
+#
 
 
 class FeedbackRepository():

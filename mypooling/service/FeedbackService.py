@@ -1,14 +1,17 @@
 from flask import jsonify
-
 from mypooling.model.entity.Feedback import Feedback
-from mypooling.model.entity.Ride import Ride
-from mypooling.model.entity.User import User
 from mypooling.model.repository.FeedBackRepository import FeedbackRepository
-from mypooling.model.repository.RideRepositroy import RideRepository
-from mypooling.service.trips.SlotsService import SlotsService
 from mypooling.service.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
+
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 09/02/23
+# Created at: 00:14
+# Version: 1.0.0
+# Description: This is the class for the feedback service
+#
 
 
 class FeedbackService():

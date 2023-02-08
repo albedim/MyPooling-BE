@@ -5,6 +5,14 @@ from mypooling.service.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 18:34
+# Version: 1.0.0
+# Description: This is the class for the ride service
+#
+
 
 class RideService():
 

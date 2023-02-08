@@ -3,6 +3,14 @@ from mypooling.model.repository.UserRepository import UserRepository
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 14:35
+# Version: 1.0.0
+# Description: This is the class for the user service
+#
+
 
 class UserService():
 

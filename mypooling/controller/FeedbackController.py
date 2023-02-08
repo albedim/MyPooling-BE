@@ -2,7 +2,6 @@ from flask import Blueprint, request
 from flask_cors import cross_origin
 
 from mypooling.service.FeedbackService import FeedbackService
-from mypooling.service.RideService import RideService
 from mypooling.utils.Utils import Utils
 
 

@@ -1,5 +1,13 @@
 from mypooling.configuration.config import sql
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 16:14
+# Version: 1.0.0
+# Description: This is the class for the step entity
+#
+
 
 class Step(sql.Model):
     __tablename__ = 'steps'

@@ -2,6 +2,14 @@ from mypooling.model.repository.StepRepositroy import StepRepository
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 16:14
+# Version: 1.0.0
+# Description: This is the class for the step service
+#
+
 
 class StepService():
 

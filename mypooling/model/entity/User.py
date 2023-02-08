@@ -1,5 +1,12 @@
 from mypooling.configuration.config import sql
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 14:35
+# Version: 1.0.0
+# Description: This is the class for the user entity
+#
 
 class User(sql.Model):
     __tablename__ = 'users'

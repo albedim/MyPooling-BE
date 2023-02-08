@@ -1,5 +1,13 @@
 from mypooling.configuration.config import sql
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 18:34
+# Version: 1.0.0
+# Description: This is the class for the ride entity
+#
+
 
 class Ride(sql.Model):
     __tablename__ = 'rides'

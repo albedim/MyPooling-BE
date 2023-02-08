@@ -1,7 +1,14 @@
 from sqlalchemy import text, desc
-
 from mypooling.configuration.config import sql
 from mypooling.model.entity.Trip import Trip
+
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 08/02/23
+# Created at: 17:34
+# Version: 1.0.0
+# Description: This is the class for the trip repository
+#
 
 
 class TripRepository():
