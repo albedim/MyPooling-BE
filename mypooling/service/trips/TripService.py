@@ -53,23 +53,14 @@ class TripService():
 
     @classmethod
     def getPlaces(cls, x, y):
-        strength = 1
-        rangeCoordinates = cls.getRange(x, y, strength)
-        trips: list = TripRepository.getNearTrips(
-            rangeCoordinates['min_x'],
-            rangeCoordinates['max_x'],
-            rangeCoordinates['min_y'],
-            rangeCoordinates['max_y']
-        )
+        strength = 1  # strength is 1 at begin
+        rc = cls.getRange(x, y, strength) # it gets a range of coordinates using the given strength
+        trips: list = TripRepository.getNearTrips(rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
+        # if length of trips is 0, it means there are no trips available in this range
         while len(trips) == 0 and strength <= 8:
-            strength += 1
-            rangeCoordinates = cls.getRange(x, y, strength)
-            trips = TripRepository.getNearTrips(
-                rangeCoordinates['min_x'],
-                rangeCoordinates['max_x'],
-                rangeCoordinates['min_y'],
-                rangeCoordinates['max_y']
-            )
+            strength += 1  # increment the strength to get places in a bigger range
+            rc = cls.getRange(x, y, strength)
+            trips = TripRepository.getNearTrips(rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
         return trips
 
     @classmethod
