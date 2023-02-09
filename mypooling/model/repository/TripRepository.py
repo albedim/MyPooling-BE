@@ -30,15 +30,18 @@ class TripRepository():
         return trips
 
     @classmethod
-    def getNearTrips(cls, stepName) -> list:
+    def getNearTrips(cls, minX, maxX, minY, maxY) -> list:
         trips: list[Trip] = sql.session.query(Trip).from_statement(
             text("SELECT trips.* "
                  "FROM trips "
                  "JOIN steps "
                  "ON trips.trip_id = steps.trip_id "
-                 "WHERE steps.name = :stepName "
+                 "WHERE steps.x > :minX "
+                 "AND steps.x < :maxX "
+                 "AND steps.y > :minY "
+                 "AND steps.y < :maxY "
                  "AND trips.finished = false")
-        ).params(stepName=stepName).all()
+        ).params(minX=minX, maxX=maxX, minY=minY, maxY=maxY).all()
         return trips
 
     @classmethod

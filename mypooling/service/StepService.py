@@ -17,7 +17,7 @@ class StepService():
     def addStep(cls, tripId: int, request: dict):
         try:
             for o in request:
-                StepRepository.addStep(o['name'], o['x'], o['y'], tripId)
+                StepRepository.addStep(o['place_id'], o['name'], o['x'], o['y'], tripId)
             return Utils.createSuccessResponse(True, "")
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
@@ -30,9 +30,9 @@ class StepService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
 
     @classmethod
-    def getStepByName(cls, tripId, stepName: str):
+    def getStepById(cls, tripId, placeId: int):
         try:
-            return StepRepository.getStepByName(stepName, tripId).toJson()
+            return StepRepository.getStepById(placeId, tripId).toJson()
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
 

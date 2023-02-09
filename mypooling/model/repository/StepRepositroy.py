@@ -14,8 +14,8 @@ from mypooling.model.entity.Step import Step
 class StepRepository():
 
     @classmethod
-    def getStepByName(cls, stepName, tripId) -> Step:
-        step: Step = sql.session.query(Step).filter(Step.trip_id == tripId).filter(Step.name == stepName).first()
+    def getStepById(cls, placeId, tripId) -> Step:
+        step: Step = sql.session.query(Step).filter(Step.trip_id == tripId).filter(Step.place_id == placeId).first()
         return step
 
     @classmethod
@@ -24,8 +24,8 @@ class StepRepository():
         return ride
 
     @classmethod
-    def addStep(cls, name, x, y, tripId):
-        step: Step = Step(name, x, y, tripId)
+    def addStep(cls, placeId, name, x, y, tripId):
+        step: Step = Step(placeId, name, x, y, tripId)
         sql.session.add(step)
         sql.session.commit()
 

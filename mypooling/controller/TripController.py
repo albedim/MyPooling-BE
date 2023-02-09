@@ -13,10 +13,10 @@ def add():
     return TripService.addTrip(request.json)
 
 
-@trip.route("/get/near/<stepName>", methods=['GET'])
+@trip.route("/get/near", methods=['GET'])
 @cross_origin()
-def getNear(stepName: str):
-    return TripService.getNearTrips(stepName)
+def getNear():
+    return TripService.getNearTrips(request.json)
 
 
 @trip.route("/get/riding/<userId>", methods=['GET'])

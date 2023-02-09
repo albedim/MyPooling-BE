@@ -11,6 +11,7 @@ from mypooling.service.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+
 #
 # @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
 # Created on: 08/02/23
@@ -51,17 +52,47 @@ class TripService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
 
     @classmethod
-    def getNearTrips(cls, stepName: str):
+    def getPlaces(cls, x, y):
+        strength = 1
+        rangeCoordinates = cls.getRange(x, y, strength)
+        trips: list[Trip] = TripRepository.getNearTrips(
+            rangeCoordinates['min_x'],
+            rangeCoordinates['max_x'],
+            rangeCoordinates['min_y'],
+            rangeCoordinates['max_y']
+        )
+        while len(trips) == 0 and strength <= 8:
+            strength += 1
+            rangeCoordinates = cls.getRange(x, y, strength)
+            trips = TripRepository.getNearTrips(
+                rangeCoordinates['min_x'],
+                rangeCoordinates['max_x'],
+                rangeCoordinates['min_y'],
+                rangeCoordinates['max_y']
+            )
+        return trips
+
+    @classmethod
+    def getNearTrips(cls, request: dict):
         try:
-            trips: list[Trip] = TripRepository.getNearTrips(stepName)
+            trips: list[Trip] = cls.getPlaces(request['x'], request['y'])
             result: list[dict] = []
             for trip in trips:
-                step: dict = StepService.getStepByName(trip.trip_id, stepName)
+                step = " "
                 owner: dict = UserService.getUser(trip.owner_id)
                 result.append(trip.toJson_Step_Owner(owner, step))
             return jsonify(result)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
+
+    @classmethod
+    def getRange(cls, x, y, strength):
+        return {
+            'min_x': x - (00.001000 * strength),
+            'max_x': x + (00.001000 * strength),
+            'min_y': y - (00.001000 * strength),
+            'max_y': y + (00.001000 * strength)
+        }
 
     @classmethod
     def getRidingTrips(cls, userId):
