@@ -55,7 +55,7 @@ class TripService():
     def getPlaces(cls, x, y):
         strength = 1
         rangeCoordinates = cls.getRange(x, y, strength)
-        trips: list[Trip] = TripRepository.getNearTrips(
+        trips: list = TripRepository.getNearTrips(
             rangeCoordinates['min_x'],
             rangeCoordinates['max_x'],
             rangeCoordinates['min_y'],
@@ -75,12 +75,11 @@ class TripService():
     @classmethod
     def getNearTrips(cls, request: dict):
         try:
-            trips: list[Trip] = cls.getPlaces(request['x'], request['y'])
+            trips: list = cls.getPlaces(request['x'], request['y'])
             result: list[dict] = []
             for trip in trips:
-                step = " "
                 owner: dict = UserService.getUser(trip.owner_id)
-                result.append(trip.toJson_Step_Owner(owner, step))
+                result.append(trip.toJson_Owner(owner))
             return jsonify(result)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)

@@ -1,6 +1,11 @@
 import datetime
 
+from sqlalchemy.orm import relationship
+
 from mypooling.configuration.config import sql
+from mypooling.model.entity.Step import Step
+from mypooling.utils.Utils import Utils
+
 
 #
 # @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
@@ -21,6 +26,7 @@ class Trip(sql.Model):
     owner_id: int = sql.Column(sql.Integer, nullable=False)
     finished: bool = sql.Column(sql.Boolean, nullable=False)
     slots: int = sql.Column(sql.Integer, nullable=False)
+    code: str = sql.Column(sql.String(6), nullable=False)
     used_slots: int = sql.Column(sql.Integer, nullable=False)
 
     def __init__(self, departure_date, start_x, start_y, owner_id, slots):
@@ -30,6 +36,7 @@ class Trip(sql.Model):
         self.owner_id = owner_id
         self.slots = slots
         self.used_slots = 0
+        self.code = Utils.createLink(6).upper()
         self.finished = False
         self.creation_date = str(datetime.datetime.now())
 
@@ -43,6 +50,7 @@ class Trip(sql.Model):
             'owner_id': self.owner_id,
             'finished': self.finished,
             'slots': self.slots,
+            'code': self.code,
             'used_slots': self.used_slots,
             'available': self.used_slots < self.slots
         }
@@ -57,9 +65,26 @@ class Trip(sql.Model):
             'owner_id': self.owner_id,
             'finished': self.finished,
             'slots': self.slots,
+            'code': self.code,
             'used_slots': self.used_slots,
             'available': self.used_slots < self.slots,
             'step': step,
+            'owner': owner
+        }
+
+    def toJson_Owner(self, owner: dict):
+        return {
+            'trip_id': self.trip_id,
+            'departure_date': str(self.departure_date),
+            'creation_date': str(self.creation_date),
+            'start_x': self.start_x,
+            'start_y': self.start_y,
+            'owner_id': self.owner_id,
+            'finished': self.finished,
+            'slots': self.slots,
+            'code': self.code,
+            'used_slots': self.used_slots,
+            'available': self.used_slots < self.slots,
             'owner': owner
         }
 
@@ -73,6 +98,7 @@ class Trip(sql.Model):
             'owner_id': self.owner_id,
             'finished': self.finished,
             'slots': self.slots,
+            'code': self.code,
             'used_slots': self.used_slots,
             'available': self.used_slots < self.slots,
             'steps': steps
