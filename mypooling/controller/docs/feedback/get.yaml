@@ -1,0 +1,15 @@
+Get feedbacks of user
+---
+tags:
+  - Feedback
+parameters:
+  - in: path
+    name: userId
+    description: The path should contain the user id
+    required: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

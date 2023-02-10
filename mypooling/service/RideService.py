@@ -20,13 +20,13 @@ class RideService():
     def addRide(cls, request: dict):
         try:
             if cls.isRider(request['user_id'], request['trip_id']):
-                return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 403)
+                return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 409), 409
             if not SlotsService.hasSlots(request['trip_id']):
-                return Utils.createWrongResponse(False, Constants.FULL_SLOTS, 403)
+                return Utils.createWrongResponse(False, Constants.FULL_SLOTS, 412), 412
             RideRepository.addRide(request['user_id'], request['step_id'], request['trip_id'])
-            return Utils.createSuccessResponse(True, Constants.CREATED)
+            return Utils.createSuccessResponse(True, Constants.CREATED), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 404), 404
 
     @classmethod
     def getRiders(cls, tripId: int):

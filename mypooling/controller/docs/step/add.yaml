@@ -1,0 +1,39 @@
+Create a step
+---
+tags:
+  - Step
+parameters:
+  - in: body
+    name: body
+    description: The body should contain an array with steps
+    required: true
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          x:
+            type: "double"
+            example: 41.145166
+          y:
+            type: "double"
+            example: 41.268372
+          place_id:
+            type: "int"
+            example: 1245561
+          name:
+            type: "string"
+            example: "315 Street, New York"
+  - in: path
+    name: tripId
+    schema:
+      type: integer
+    description: The path should contain the trip id
+    required: true
+
+responses:
+  200:
+    description: When a step was successfully added
+
+  400:
+    description: Bad request

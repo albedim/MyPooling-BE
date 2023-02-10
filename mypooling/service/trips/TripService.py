@@ -28,16 +28,16 @@ class TripService():
         try:
             TripRepository.addTrip(
                 datetime.datetime.fromisoformat(
-                    request['departure_date'].split(',')[2] + '-' +
+                    request['departure_date'].split(',')[0] + '-' +
                     request['departure_date'].split(',')[1] + '-' +
-                    request['departure_date'].split(',')[0] + ' ' +
+                    request['departure_date'].split(',')[2] + ' ' +
                     request['departure_date'].split(',')[3] + ':' +
                     request['departure_date'].split(',')[4]
                 ), request['start_x'], request['start_y'], request['owner_id'], request['slots']
             )
-            return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id)
+            return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def getOwnTrips(cls, ownerId: int):
@@ -47,9 +47,9 @@ class TripService():
             for trip in trips:
                 steps: list[Step] = StepService.getSteps(trip.trip_id)
                 result.append(trip.toJson_Steps(Utils.createList(steps)))
-            return jsonify(result)
+            return jsonify(result), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 200
 
     @classmethod
     def getAutoPlaces(cls, departureDate, x, y):
@@ -70,22 +70,22 @@ class TripService():
         return trips
 
     @classmethod
-    def getNearTrips(cls, request: dict):
+    def getNearTrips(cls, x: float, y: float, strength: float, departure_date: str):
         try:
             date = datetime.datetime.fromisoformat(
-                request['departure_date'].split(",")[2] + "-" +
-                request['departure_date'].split(",")[1] + "-" +
-                request['departure_date'].split(",")[0]
+                departure_date.split(",")[0] + "-" +
+                departure_date.split(",")[1] + "-" +
+                departure_date.split(",")[2]
             )
-            # trips: list = cls.getAutoPlaces(date, request['x'], request['y'])
-            trips: list = cls.getPlaces(date, request['x'], request['y'], request['strength'])
+            # trips: list = cls.getAutoPlaces(date, x, y)
+            trips: list = cls.getPlaces(date, x, y, strength)
             result: list[dict] = []
             for trip in trips:
                 owner: dict = UserService.getUser(trip.owner_id)
                 result.append(trip.toJson_Owner(owner))
-            return jsonify(result)
+            return jsonify(result), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def getRange(cls, x, y, strength):
@@ -106,6 +106,6 @@ class TripService():
                 step: dict = StepService.getStep(ride.step_id)
                 owner: dict = UserService.getUser(trip.owner_id)
                 result.append(trip.toJson_Step_Owner(owner, step))
-            return jsonify(result)
+            return jsonify(result), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

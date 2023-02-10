@@ -1,0 +1,40 @@
+Get near trips
+---
+tags:
+  - Trip
+parameters:
+  - in: query
+    name: x
+    description: It should contain the x
+    required: true
+    schema:
+      type: float
+    allowReserved: true
+  - in: query
+    name: y
+    description: It should contain the y
+    required: true
+    schema:
+      type: float
+    allowReserved: true
+  - in: query
+    name: strength
+    description: It should contain the strength
+    required: true
+    schema:
+      type: int
+    allowReserved: true
+  - in: query
+    name: departure_date
+    description: It should contain the departure_date
+    required: true
+    schema:
+      type: string
+      example: "2023,12,04"
+    allowReserved: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

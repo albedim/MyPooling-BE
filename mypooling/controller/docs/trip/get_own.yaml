@@ -1,0 +1,17 @@
+Get trip where user is owner
+---
+tags:
+  - Trip
+parameters:
+  - in: path
+    name: ownerId
+    schema:
+      type: integer
+    description: The path should contain the owner id
+    required: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

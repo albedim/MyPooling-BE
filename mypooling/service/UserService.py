@@ -3,6 +3,7 @@ from mypooling.model.repository.UserRepository import UserRepository
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+
 #
 # @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
 # Created on: 08/02/23
@@ -24,9 +25,9 @@ class UserService():
             if user is not None:
                 return Utils.createSuccessResponse(True, user.user_id)
             else:
-                return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404)
+                return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 404
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def exists(cls, email, username) -> bool:
@@ -48,6 +49,6 @@ class UserService():
                 )
                 return Utils.createSuccessResponse(True, Constants.CREATED)
             else:
-                return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 403)
+                return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 409), 409
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

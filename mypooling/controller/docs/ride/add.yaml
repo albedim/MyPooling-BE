@@ -1,0 +1,37 @@
+Add a ride
+---
+tags:
+  - Ride
+parameters:
+  - name: body
+    description: The body should contain the ride data
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "user_id"
+        - "step_id"
+        - "trip_id"
+      properties:
+        user_id:
+          type: "int"
+          example: 1
+        step_id:
+          type: "int"
+          example: 2
+        trip_id:
+          type: "int"
+          example: 3
+responses:
+  200:
+    description: When a ride successfully created
+
+  400:
+    description: Bad request
+
+  409:
+    description: A ride with this user and trip already exists
+
+  412:
+    description: There are no free slots for this trip

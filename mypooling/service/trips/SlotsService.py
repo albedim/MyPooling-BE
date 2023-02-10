@@ -8,6 +8,7 @@ from mypooling.model.repository.TripRepository import TripRepository
 # Description: This is the class for the slots service
 #
 
+
 class SlotsService():
 
     @classmethod

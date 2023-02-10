@@ -1,0 +1,17 @@
+Get trip where user is rider
+---
+tags:
+  - Trip
+parameters:
+  - in: path
+    name: userId
+    schema:
+      type: integer
+    description: The path should contain the user id
+    required: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

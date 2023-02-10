@@ -1,0 +1,41 @@
+Add a feedback
+---
+tags:
+  - Feedback
+parameters:
+  - name: body
+    description: The body should contain the feedback data
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "creator_id"
+        - "receiver_id"
+        - "stars"
+        - "thought"
+      properties:
+        creator_id:
+          type: "int"
+          example: 1
+        receiver_id:
+          type: "int"
+          example: 2
+        stars:
+          type: "int"
+          example: 3
+        thought:
+          type: "string"
+          example: "Good driver"
+responses:
+  200:
+    description: When a ride successfully created
+
+  400:
+    description: Bad request
+
+  409:
+    description: A ride with this user and trip already exists
+
+  412:
+    description: There are no free slots for this trip

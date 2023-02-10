@@ -1,0 +1,15 @@
+Get rides of trip
+---
+tags:
+  - Ride
+parameters:
+  - in: path
+    name: tripId
+    description: The path should contain the trip id
+    required: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

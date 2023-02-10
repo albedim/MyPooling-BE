@@ -25,9 +25,9 @@ class FeedbackService():
                 request['stars'],
                 request['thought']
             )
-            return Utils.createSuccessResponse(True, Constants.CREATED)
+            return Utils.createSuccessResponse(True, Constants.CREATED), 200
         except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def getFeedbacks(cls, userId, anonymous):

@@ -1,5 +1,8 @@
+from flasgger import Swagger
+from flask_swagger_ui import get_swaggerui_blueprint
 from mypooling.configuration.config import app, sql
 from mypooling.controller import UserController, RideController, StepController, TripController, FeedbackController
+from mypooling.controller.docs.swagger import swagger_config, template
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
@@ -9,6 +12,8 @@ app.register_blueprint(StepController.step)
 app.register_blueprint(UserController.user)
 app.register_blueprint(TripController.trip)
 app.register_blueprint(FeedbackController.feedback)
+
+Swagger(app, config=swagger_config, template=template)
 
 
 def create_app():
