@@ -25,7 +25,7 @@ parameters:
           example: 3
 responses:
   200:
-    description: When a ride successfully created
+    description: When a ride gets successfully created
 
   400:
     description: Bad request

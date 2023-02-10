@@ -16,11 +16,11 @@ def add():
     return FeedbackService.addFeedback(request.json)
 
 
-@feedback.route("/get", methods=['GET'])
+@feedback.route("/get/<userId>", methods=['GET'])
 @cross_origin()
 @swag_from('./docs/feedback/get.yaml')
-def get():
-    return FeedbackService.getFeedbacks(int(request.args.get('user_id')), request.args.get('anonymous'))
+def get(userId: int):
+    return FeedbackService.getFeedbacks(int(userId))
 
 
 

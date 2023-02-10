@@ -13,8 +13,8 @@ from mypooling.model.entity.Feedback import Feedback
 class FeedbackRepository():
 
     @classmethod
-    def addFeedback(cls, creator_id, receiver_id, stars, thought):
-        feedback: Feedback = Feedback(creator_id, receiver_id, stars, thought)
+    def addFeedback(cls, creator_id, receiver_id, anonymous, stars, thought):
+        feedback: Feedback = Feedback(anonymous, creator_id, receiver_id, stars, thought)
         sql.session.add(feedback)
         sql.session.commit()
 

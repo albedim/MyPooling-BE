@@ -11,6 +11,7 @@ parameters:
       type: object
       required:
         - "creator_id"
+        - "anonymous"
         - "receiver_id"
         - "stars"
         - "thought"
@@ -27,15 +28,11 @@ parameters:
         thought:
           type: "string"
           example: "Good driver"
+        anonymous:
+          type: "boolean"
 responses:
   200:
-    description: When a ride successfully created
+    description: When a feedback gets successfully created
 
   400:
     description: Bad request
-
-  409:
-    description: A ride with this user and trip already exists
-
-  412:
-    description: There are no free slots for this trip

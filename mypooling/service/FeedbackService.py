@@ -1,5 +1,6 @@
 from flask import jsonify
 from mypooling.model.entity.Feedback import Feedback
+from mypooling.model.entity.User import User
 from mypooling.model.repository.FeedBackRepository import FeedbackRepository
 from mypooling.service.UserService import UserService
 from mypooling.utils.Constants import Constants
@@ -22,6 +23,7 @@ class FeedbackService():
             FeedbackRepository.addFeedback(
                 request['creator_id'],
                 request['receiver_id'],
+                request['anonymous'],
                 request['stars'],
                 request['thought']
             )
@@ -30,23 +32,20 @@ class FeedbackService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
-    def getFeedbacks(cls, userId, anonymous):
+    def getFeedbacks(cls, userId):
         try:
             feedbacks: list[Feedback] = FeedbackRepository.getFeedbacks(userId)
             result: list[dict] = [{
                 'user_id': userId,
                 'average_stars': cls.getAverageStars(feedbacks)
             }]
-            if anonymous == 'true':
-                for feedback in feedbacks:
-                    receiver: dict = UserService.getUser(feedback.receiver_id)
-                    result.append(feedback.toJson_Receiver(receiver))
-            else:
-                for feedback in feedbacks:
+            for feedback in feedbacks:
+                if feedback.anonymous:
+                    result.append(feedback.toJson_Anonymous())
+                else:
                     creator: dict = UserService.getUser(feedback.creator_id)
-                    receiver: dict = UserService.getUser(feedback.receiver_id)
-                    result.append(feedback.toJson_Creator_Receiver(creator, receiver))
-            return jsonify(result)
+                    result.append(feedback.toJson_Not_Anonymous(creator))
+            return jsonify(result), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
 

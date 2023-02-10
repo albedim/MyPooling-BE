@@ -33,7 +33,7 @@ parameters:
 
 responses:
   200:
-    description: When a step was successfully added
+    description: When a step gets successfully added
 
   400:
     description: Bad request
