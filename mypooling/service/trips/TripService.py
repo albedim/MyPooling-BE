@@ -52,21 +52,33 @@ class TripService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 500)
 
     @classmethod
-    def getPlaces(cls, x, y):
+    def getAutoPlaces(cls, departureDate, x, y):
         strength = 1  # strength is 1 at begin
         rc = cls.getRange(x, y, strength) # it gets a range of coordinates using the given strength
-        trips: list = TripRepository.getNearTrips(rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
+        trips: list = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
         # if length of trips is 0, it means there are no trips available in this range
         while len(trips) == 0 and strength <= 8:
             strength += 1  # increment the strength to get places in a bigger range
             rc = cls.getRange(x, y, strength)
-            trips = TripRepository.getNearTrips(rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
+            trips = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
+        return trips
+
+    @classmethod
+    def getPlaces(cls, departureDate, x, y, strength):
+        rc = cls.getRange(x, y, strength)
+        trips: list = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
         return trips
 
     @classmethod
     def getNearTrips(cls, request: dict):
         try:
-            trips: list = cls.getPlaces(request['x'], request['y'])
+            date = datetime.datetime.fromisoformat(
+                request['departure_date'].split(",")[2] + "-" +
+                request['departure_date'].split(",")[1] + "-" +
+                request['departure_date'].split(",")[0]
+            )
+            # trips: list = cls.getAutoPlaces(date, request['x'], request['y'])
+            trips: list = cls.getPlaces(date, request['x'], request['y'], request['strength'])
             result: list[dict] = []
             for trip in trips:
                 owner: dict = UserService.getUser(trip.owner_id)
