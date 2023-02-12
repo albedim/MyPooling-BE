@@ -24,6 +24,7 @@ class RideService():
             if not SlotsService.hasSlots(request['trip_id']):
                 return Utils.createWrongResponse(False, Constants.FULL_SLOTS, 412), 412
             RideRepository.addRide(request['user_id'], request['step_id'], request['trip_id'])
+            SlotsService.addSlot(request['trip_id'])
             return Utils.createSuccessResponse(True, Constants.CREATED), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 404), 404

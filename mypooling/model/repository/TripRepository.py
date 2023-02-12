@@ -1,5 +1,6 @@
 from sqlalchemy import text, desc
 from mypooling.configuration.config import sql
+from mypooling.model.entity.Step import Step
 from mypooling.model.entity.Trip import Trip
 
 #
@@ -30,19 +31,24 @@ class TripRepository():
         return trips
 
     @classmethod
-    def getNearTrips(cls, departureDate, minX, maxX, minY, maxY) -> list:
-        trips: list[Trip] = sql.session.query(Trip).from_statement(
-            text("SELECT trips.* "
+    def getNearTrips(cls, departureDate, x, y, strength) -> list:
+        trips: list = sql.session.query(Trip, Step).from_statement(
+            text("SELECT trips.*, steps.*, "
+                 "( 3959 * "
+                 "  acos(cos(radians(:x)) * "
+                 "  cos(radians(x)) * "
+                 "  cos(radians(y) - "
+                 "  radians(:y)) + "
+                 "  sin(radians(:x)) * "
+                 "  sin(radians(x))) "
+                 ") AS distance "
                  "FROM trips "
                  "JOIN steps "
                  "ON trips.trip_id = steps.trip_id "
-                 "WHERE steps.x > :minX "
-                 "AND steps.x < :maxX "
-                 "AND steps.y > :minY "
-                 "AND steps.y < :maxY "
-                 "AND CAST(trips.departure_date as date) = :departureDate "
-                 "AND trips.finished = false")
-        ).params(minX=minX, maxX=maxX, minY=minY, maxY=maxY, departureDate=departureDate).all()
+                 "WHERE CAST(trips.departure_date as date) = :departureDate "
+                 "AND trips.finished = false "
+                 "HAVING distance < :strength")
+        ).params(x=x, y=y, departureDate=departureDate, strength=strength / 10).all()
         return trips
 
     @classmethod

@@ -16,7 +16,7 @@ class Step(sql.Model):
     x: float = sql.Column(sql.Double, nullable=False)
     y: float = sql.Column(sql.Double, nullable=False)
     place_id: int = sql.Column(sql.Integer, nullable=False)
-    trip_id: int = sql.Column(sql.Integer, nullable=False)
+    trip_id: int = sql.Column(sql.Integer, sql.ForeignKey('trips.trip_id'), nullable=False)
 
     def __init__(self, place_id, name, x, y, trip_id):
         self.name = name

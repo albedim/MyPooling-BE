@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from flask import jsonify
 from mypooling.model.entity.Ride import Ride
@@ -52,37 +53,13 @@ class TripService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 200
 
     @classmethod
-    def getAutoPlaces(cls, departureDate, x, y):
-        strength = 1  # strength is 1 at begin
-        rc = cls.getRange(x, y, strength) # it gets a range of coordinates using the given strength
-        trips: list = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
-        # if length of trips is 0, it means there are no trips available in this range
-        while len(trips) == 0 and strength <= 8:
-            strength += 1  # increment the strength to get places in a bigger range
-            rc = cls.getRange(x, y, strength)
-            trips = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
-        return trips
-
-    @classmethod
-    def getPlaces(cls, departureDate, x, y, strength):
-        rc = cls.getRange(x, y, strength)
-        trips: list = TripRepository.getNearTrips(departureDate, rc['min_x'], rc['max_x'], rc['min_y'], rc['max_y'])
-        return trips
-
-    @classmethod
     def getNearTrips(cls, x: float, y: float, strength: float, departure_date: str):
         try:
-            date = datetime.datetime.fromisoformat(
-                departure_date.split(",")[0] + "-" +
-                departure_date.split(",")[1] + "-" +
-                departure_date.split(",")[2]
-            )
-            # trips: list = cls.getAutoPlaces(date, x, y)
-            trips: list = cls.getPlaces(date, x, y, strength)
+            rows: list = TripRepository.getNearTrips(departure_date.replace(",", "-", 2), x, y, strength)
             result: list[dict] = []
-            for trip in trips:
-                owner: dict = UserService.getUser(trip.owner_id)
-                result.append(trip.toJson_Owner(owner))
+            for row in rows:  # row has now two objects
+                owner: dict = UserService.getUser(row[0].owner_id)
+                result.append(row[0].toJson_Step_Owner(owner, row[1].toJson()))
             return jsonify(result), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

@@ -15,6 +15,6 @@ class Constants():
     FULL_SLOTS = "You can't add more"
     ALREADY_CREATED = "This resource was already created"
 
-    PAGE_NOT_FOUND = 'This page was not found. See our documentation: '
-    PAGE_METHOD_NOT_ALLOWED = 'Method not allowed. See our documentation: '
+    PAGE_NOT_FOUND = 'This page was not found. See our documentation: https://albedim.pythonanywhere.com'
+    PAGE_METHOD_NOT_ALLOWED = 'Method not allowed. See our documentation: https://albedim.pythonanywhere.com'
     PAGE_UNKNOWN_ERROR = 'Unknown error'

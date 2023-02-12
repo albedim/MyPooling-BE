@@ -10,6 +10,7 @@ config = {
     "1.2.5 - Code improvement"
     "1.3.0 - Near place's search improved",
     "1.3.5 - Documentation added",
-    "1.4.0 - Feedback can be made as anonymous now"
+    "1.4.0 - Feedback can be made as anonymous now",
+    "1.4.5 - Bug Fixing, Search system improved"
   ]
 }
