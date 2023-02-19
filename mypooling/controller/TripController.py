@@ -23,7 +23,8 @@ def getNear():
         float(request.args.get('x')),
         float(request.args.get('y')),
         int(request.args.get('strength')),
-        request.args.get('departure_date')
+        request.args.get('departure_date'),
+        request.args.get('mode')
     )
 
 

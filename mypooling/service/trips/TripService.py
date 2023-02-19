@@ -34,7 +34,7 @@ class TripService():
                     request['departure_date'].split(',')[2] + ' ' +
                     request['departure_date'].split(',')[3] + ':' +
                     request['departure_date'].split(',')[4]
-                ), request['start_x'], request['start_y'], request['owner_id'], request['slots']
+                ), request['start_x'], request['start_y'], request['owner_id'], request['slots'], request['mode']
             )
             return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id), 200
         except KeyError:
@@ -53,9 +53,9 @@ class TripService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 200
 
     @classmethod
-    def getNearTrips(cls, x: float, y: float, strength: float, departure_date: str):
+    def getNearTrips(cls, x: float, y: float, strength: float, departure_date: str, mode):
         try:
-            rows: list = TripRepository.getNearTrips(departure_date.replace(",", "-", 2), x, y, strength)
+            rows: list = TripRepository.getNearTrips(departure_date.replace(",", "-", 2), x, y, strength, mode)
             result: list[dict] = []
             for row in rows:  # row has now two objects
                 owner: dict = UserService.getUser(row[0].owner_id)

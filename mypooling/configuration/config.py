@@ -8,6 +8,8 @@ from resources.config import config
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://' + config['username'] + ':' + config['password'] + '@' + config['host'] + '/' + config['db-name']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string']
+app.config["JWT_SECRET_KEY"] = "super-secret"
 sql = SQLAlchemy(app)
 
 

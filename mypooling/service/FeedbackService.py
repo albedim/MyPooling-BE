@@ -35,10 +35,7 @@ class FeedbackService():
     def getFeedbacks(cls, userId):
         try:
             feedbacks: list[Feedback] = FeedbackRepository.getFeedbacks(userId)
-            result: list[dict] = [{
-                'user_id': userId,
-                'average_stars': cls.getAverageStars(feedbacks)
-            }]
+            result: list[dict] = []
             for feedback in feedbacks:
                 if feedback.anonymous:
                     result.append(feedback.toJson_Anonymous())

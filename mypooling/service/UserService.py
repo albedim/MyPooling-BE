@@ -1,3 +1,5 @@
+from flask_jwt_extended import create_access_token, jwt_required
+
 from mypooling.model.entity.User import User
 from mypooling.model.repository.UserRepository import UserRepository
 from mypooling.utils.Constants import Constants
@@ -23,7 +25,7 @@ class UserService():
                 Utils.hash(request['password'])
             )
             if user is not None:
-                return Utils.createSuccessResponse(True, user.user_id)
+                return Utils.createSuccessResponse(True, create_access_token(identity=user.toJson()))
             else:
                 return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 404
         except KeyError:

@@ -1,4 +1,6 @@
 from flasgger import Swagger
+from flask_jwt_extended import JWTManager
+
 from mypooling.configuration.config import app, sql
 from mypooling.controller import UserController, RideController, StepController, TripController, FeedbackController
 from mypooling.controller.docs.swagger import swagger_config, template
@@ -11,6 +13,7 @@ app.register_blueprint(TripController.trip)
 app.register_blueprint(FeedbackController.feedback)
 
 Swagger(app, config=swagger_config, template=template)
+JWTManager(app)
 
 
 def create_app():

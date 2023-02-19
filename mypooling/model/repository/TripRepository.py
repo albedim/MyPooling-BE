@@ -31,7 +31,7 @@ class TripRepository():
         return trips
 
     @classmethod
-    def getNearTrips(cls, departureDate, x, y, strength) -> list:
+    def getNearTrips(cls, departureDate, x, y, strength, mode) -> list:
         trips: list = sql.session.query(Trip, Step).from_statement(
             text("SELECT trips.*, steps.*, "
                  "( 3959 * "
@@ -47,8 +47,9 @@ class TripRepository():
                  "ON trips.trip_id = steps.trip_id "
                  "WHERE CAST(trips.departure_date as date) = :departureDate "
                  "AND trips.finished = false "
+                 "AND mode = :mode "
                  "HAVING distance < :strength")
-        ).params(x=x, y=y, departureDate=departureDate, strength=strength / 10).all()
+        ).params(x=x, y=y, departureDate=departureDate, strength=strength / 10, mode=mode).all()
         return trips
 
     @classmethod
@@ -69,7 +70,7 @@ class TripRepository():
         return lastTrip
 
     @classmethod
-    def addTrip(cls, departure_date, start_x, start_y, owner_id, slots):
-        trip: Trip = Trip(departure_date, start_x, start_y, owner_id, slots)
+    def addTrip(cls, departure_date, start_x, start_y, owner_id, slots, mode):
+        trip: Trip = Trip(departure_date, start_x, start_y, owner_id, slots, mode)
         sql.session.add(trip)
         sql.session.commit()
