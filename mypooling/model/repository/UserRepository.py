@@ -17,8 +17,8 @@ class UserRepository():
         return user
 
     @classmethod
-    def signup(cls, username, name, email, password) -> None:
-        user: User = User(username, name, email, password)
+    def signup(cls, username, name, email, age, bio, place, password) -> None:
+        user: User = User(username, name, email, age, bio, place, password)
         sql.session.add(user)
         sql.session.commit()
 
@@ -33,6 +33,11 @@ class UserRepository():
         return users
 
     @classmethod
-    def getUser(cls, userId) -> User:
+    def getUserById(cls, userId) -> User:
         user: User = sql.session.query(User).filter(User.user_id == userId).first()
+        return user
+
+    @classmethod
+    def getUserByUsername(cls, username) -> User:
+        user: User = sql.session.query(User).filter(User.username == username).first()
         return user

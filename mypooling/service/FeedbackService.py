@@ -47,7 +47,8 @@ class FeedbackService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 405)
 
     @classmethod
-    def getAverageStars(cls, feedBacks) -> float:
+    def getAverageStars(cls, userId) -> float:
+        feedBacks: list[Feedback] = FeedbackRepository.getFeedbacks(userId)
         if len(feedBacks) == 0:
             return 0
         sumAverage = 0

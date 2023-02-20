@@ -37,7 +37,7 @@ class UserService():
 
     @classmethod
     def getUser(cls, userId) -> dict:
-        return UserRepository.getUser(userId).toJson()
+        return UserRepository.getUserById(userId).toJson()
 
     @classmethod
     def signup(cls, request: dict):
@@ -47,6 +47,9 @@ class UserService():
                     request['username'],
                     request['name'],
                     request['email'],
+                    request['age'],
+                    request['bio'],
+                    request['place'],
                     Utils.hash(request['password'])
                 )
                 return Utils.createSuccessResponse(True, Constants.CREATED)

@@ -1,0 +1,21 @@
+Get user information
+---
+tags:
+  - User
+parameters:
+  - in: query
+    name: user_id
+    description: The user_id should contain the user id
+    required: false
+  - in: query
+    name: username
+    description: The username should contain the user username
+    required: false
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request
+  404:
+    description: User not found
