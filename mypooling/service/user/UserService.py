@@ -57,3 +57,20 @@ class UserService():
                 return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 409), 409
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+
+    @classmethod
+    def changeData(cls, request: dict):
+        try:
+            UserRepository.changeData(
+                request['user_id'],
+                request['username'],
+                request['name'],
+                request['email'],
+                request['age'],
+                request['bio'],
+                request['place'],
+                Utils.hash(request['password'])
+            )
+            return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

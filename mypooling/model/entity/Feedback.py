@@ -42,6 +42,7 @@ class Feedback(sql.Model):
             'receiver_id': self.receiver_id,
             'stars': self.stars,
             'thought': self.thought,
+            'anonymous': self.anonymous,
             'creator': creator
         }
 
@@ -51,6 +52,7 @@ class Feedback(sql.Model):
             'creator_id': self.creator_id,
             'receiver_id': self.receiver_id,
             'stars': self.stars,
+            'anonymous': self.anonymous,
             'thought': self.thought,
             'creator': 'Anonymous'
         }

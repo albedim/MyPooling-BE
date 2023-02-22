@@ -1,7 +1,7 @@
 from mypooling.model.entity.Ride import Ride
 from mypooling.model.repository.RideRepositroy import RideRepository
 from mypooling.service.trips.SlotsService import SlotsService
-from mypooling.service.UserService import UserService
+from mypooling.service.user.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 

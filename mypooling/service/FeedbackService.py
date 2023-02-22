@@ -1,8 +1,7 @@
 from flask import jsonify
 from mypooling.model.entity.Feedback import Feedback
-from mypooling.model.entity.User import User
 from mypooling.model.repository.FeedBackRepository import FeedbackRepository
-from mypooling.service.UserService import UserService
+from mypooling.service.user.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 

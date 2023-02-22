@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from flask import jsonify
 from mypooling.model.entity.Ride import Ride
@@ -8,7 +7,7 @@ from mypooling.model.entity.Trip import Trip
 from mypooling.model.repository.TripRepository import TripRepository
 from mypooling.service.RideService import RideService
 from mypooling.service.StepService import StepService
-from mypooling.service.UserService import UserService
+from mypooling.service.user.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 

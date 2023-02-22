@@ -28,6 +28,7 @@ class Step(sql.Model):
     def toJson(self):
         return {
             'step_id': self.step_id,
+            'name': self.name,
             'x': self.x,
             'y': self.y,
             'place_id': self.place_id,

@@ -3,8 +3,8 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_cors import cross_origin
 
-from mypooling.service.UserInformationService import UserInformationService
-from mypooling.service.UserService import UserService
+from mypooling.service.user.UserInformationService import UserInformationService
+from mypooling.service.user.UserService import UserService
 from mypooling.utils.Utils import Utils
 
 
@@ -24,6 +24,13 @@ def signin():
 @swag_from('./docs/user/session_check.yaml')
 def isExpired():
     return get_jwt_identity()
+
+
+@user.route("/change", methods=['PUT'])
+@cross_origin()
+@swag_from('./docs/user/change.yaml')
+def change():
+    return UserService.changeData(request.json)
 
 
 @user.route("/get", methods=['GET'])

@@ -41,3 +41,15 @@ class UserRepository():
     def getUserByUsername(cls, username) -> User:
         user: User = sql.session.query(User).filter(User.username == username).first()
         return user
+
+    @classmethod
+    def changeData(cls, userId, username, name, email, age, bio, place, password) -> None:
+        user: User = cls.getUserById(userId)
+        user.username = username
+        user.name = name
+        user.email = email
+        user.age = age
+        user.place = place
+        user.password = password
+        user.bio = bio
+        sql.session.commit()
