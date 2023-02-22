@@ -1,0 +1,27 @@
+Add a notification
+---
+tags:
+  - Notification
+parameters:
+  - name: body
+    description: The body should contain the notification data
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "receiver_id"
+        - "body"
+      properties:
+        receiver_id:
+          type: "int"
+          example: 1
+        body:
+          type: "str"
+          example: "RIDE_ADDED"
+responses:
+  200:
+    description: When a notification gets successfully created
+
+  400:
+    description: Bad request

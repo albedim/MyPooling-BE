@@ -1,0 +1,15 @@
+Get notifications of user
+---
+tags:
+  - Notification
+parameters:
+  - in: path
+    name: notificationId
+    description: The path should contain the notification id
+    required: true
+
+responses:
+  200:
+    description: OK
+  400:
+    description: Bad request

@@ -1,7 +1,11 @@
 import datetime
 import os
 import random
+import smtplib
+
 from flask import jsonify
+
+from mypooling.utils.Constants import Constants
 from resources.rest_service import config
 
 
@@ -74,3 +78,10 @@ class Utils():
         for i in range(length):
             link += letters[random.randint(0, 59)]
         return link
+
+    @classmethod
+    def sendMail(cls, user, email):
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(Constants.EMAIL, Constants.PASSWORD)
+        server.sendmail(Constants.EMAIL, user.email, email)

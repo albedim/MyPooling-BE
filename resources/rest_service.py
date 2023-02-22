@@ -1,7 +1,7 @@
 config = {
   "name": "MyPooling",
   "author": "albedim",
-  "version": "1.6.0",
+  "version": "1.6.5",
   "history-versions": [
     "1.0.0 - first version",
     "1.0.5 - Feedback added",
@@ -14,6 +14,7 @@ config = {
     "1.4.5 - Bug Fixing, Search system improved",
     "1.5.0 - JWT Authentication added, 'mode' field added in trip entity. It is going to identify the trips which are going to the destination and come back home",
     "1.5.5 - New endpoint for getting user information has been added",
-    "1.6.0 - The editing of users information has been added"
+    "1.6.0 - The editing of users information has been added",
+    "1.6.5 - Notifications added"
   ]
 }

@@ -11,7 +11,10 @@ class Constants():
 
     NOT_FOUND: str = "This resource was not found"
     CREATED: str = "Created"
-    INVALID_REQUEST: str = "Invalid request",
+    INVALID_REQUEST: str = "Invalid request"
+    EMAIL = "dimaio.albe@gmail.com"
+    PASSWORD = "lixfrzouclkjserb"
+    RIDE_ADDED: str = "{username} ha appena prenotato un tuo passaggio"
     FULL_SLOTS = "You can't add more"
     ALREADY_CREATED = "This resource was already created"
 
