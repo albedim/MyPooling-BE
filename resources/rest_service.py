@@ -15,6 +15,7 @@ config = {
     "1.5.0 - JWT Authentication added, 'mode' field added in trip entity. It is going to identify the trips which are going to the destination and come back home",
     "1.5.5 - New endpoint for getting user information has been added",
     "1.6.0 - The editing of users information has been added",
-    "1.6.5 - Notifications added"
+    "1.6.5 - Notifications added",
+    "1.7.0 - Notifications improved"
   ]
 }
