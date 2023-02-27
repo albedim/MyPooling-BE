@@ -18,6 +18,7 @@ class User(sql.Model):
     age: int = sql.Column(sql.Integer, nullable=False)
     place: str = sql.Column(sql.String(40), nullable=False)
     bio: str = sql.Column(sql.String(150), nullable=True)
+    password_forgotten_token: str = sql.Column(sql.String(540), nullable=True)
     username: str = sql.Column(sql.String(40), nullable=False)
 
     def __init__(self, username, name, email, age, bio, place, password):
@@ -27,6 +28,7 @@ class User(sql.Model):
         self.age = age,
         self.bio = bio,
         self.place = place,
+        self.password_forgotten_token = None
         self.password = password
 
     def toJson(self):

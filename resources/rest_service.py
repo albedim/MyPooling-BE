@@ -1,7 +1,7 @@
 config = {
   "name": "MyPooling",
   "author": "albedim",
-  "version": "1.7.5",
+  "version": "1.8.0",
   "history-versions": [
     "1.0.0 - first version",
     "1.0.5 - Feedback added",
@@ -17,6 +17,7 @@ config = {
     "1.6.0 - The editing of users information has been added",
     "1.6.5 - Notifications added",
     "1.7.0 - Notifications improved",
-    "1.7.5 - Start coordinates were removed from trip entity"
+    "1.7.5 - Start coordinates were removed from trip entity",
+    "1.8.0 - Forget Password System has been added"
   ]
 }

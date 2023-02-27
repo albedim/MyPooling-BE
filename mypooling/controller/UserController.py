@@ -33,6 +33,27 @@ def change():
     return UserService.changeData(request.json)
 
 
+@user.route("/password_forgotten_token/<email>", methods=['PUT'])
+@cross_origin()
+@swag_from('./docs/user/create_password_forgotten_token.yaml')
+def createPasswordForgottenToken(email):
+    return UserService.createForgottenPasswordToken(email)
+
+
+@user.route("/password_forgotten_token/<token>", methods=['GET'])
+@cross_origin()
+@swag_from('./docs/user/get_user_by_password_forgotten_token.yaml')
+def getUserByPasswordForgottenToken(token):
+    return UserService.getUserByPasswordForgottenToken(token)
+
+
+@user.route("/change_password", methods=['PUT'])
+@cross_origin()
+@swag_from('./docs/user/change_password.yaml')
+def changePassword():
+    return UserService.changePassword(request.json)
+
+
 @user.route("/get", methods=['GET'])
 @cross_origin()
 @swag_from('./docs/user/get.yaml')

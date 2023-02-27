@@ -10,6 +10,8 @@
 class Constants():
 
     NOT_FOUND: str = "This resource was not found"
+    WELCOME_EMAIL: str = "Hey {name}! \n Benvenuto nella nostra piattaforma"
+    PASSWORD_FORGOTTEN_EMAIL: str = "Hey {name}! \n Ecco il link per recuperare la tua password: http://192.168.1.10:3000/recovery_password?token={token}"
     CREATED: str = "Created"
     INVALID_REQUEST: str = "Invalid request"
     EMAIL = "dimaio.albe@gmail.com"

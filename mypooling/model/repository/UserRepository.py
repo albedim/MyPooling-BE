@@ -1,5 +1,7 @@
 from mypooling.configuration.config import sql
 from mypooling.model.entity.User import User
+from mypooling.utils.Utils import Utils
+
 
 #
 # @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
@@ -41,6 +43,27 @@ class UserRepository():
     def getUserByUsername(cls, username) -> User:
         user: User = sql.session.query(User).filter(User.username == username).first()
         return user
+
+    @classmethod
+    def getUserByEmail(cls, email) -> User:
+        user: User = sql.session.query(User).filter(User.email == email).first()
+        return user
+
+    @classmethod
+    def createForgottenPasswordToken(cls, user, token):
+        user.password_forgotten_token = token
+        sql.session.commit()
+
+    @classmethod
+    def getUserByPasswordForgottenToken(cls, token):
+        user: User = sql.session.query(User).filter(User.password_forgotten_token == token).first()
+        return user
+
+    @classmethod
+    def changePassword(cls, userId, newPassword):
+        user: User = cls.getUserById(userId)
+        user.password = newPassword
+        sql.session.commit()
 
     @classmethod
     def changeData(cls, userId, username, name, email, age, bio, place, password) -> None:

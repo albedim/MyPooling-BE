@@ -80,8 +80,16 @@ class Utils():
         return link
 
     @classmethod
-    def sendMail(cls, user, email):
+    def sendWelcomeEmail(cls, name, email):
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(Constants.EMAIL, Constants.PASSWORD)
-        server.sendmail(Constants.EMAIL, user.email, email)
+        server.sendmail(Constants.EMAIL, email, Constants.WELCOME_EMAIL.replace("{name}", name))
+
+    @classmethod
+    def sendPasswordForgottenEmail(cls, name, email, token):
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(Constants.EMAIL, Constants.PASSWORD)
+        server.sendmail(Constants.EMAIL, email, Constants.PASSWORD_FORGOTTEN_EMAIL
+                        .replace("{name}", name).replace("{token}", token))

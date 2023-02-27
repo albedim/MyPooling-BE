@@ -52,9 +52,37 @@ class UserService():
                     request['place'],
                     Utils.hash(request['password'])
                 )
+                Utils.sendWelcomeEmail(request['name'], request['email'])
                 return Utils.createSuccessResponse(True, Constants.CREATED)
             else:
                 return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 409), 409
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+
+    @classmethod
+    def createForgottenPasswordToken(cls, email):
+        user: User = UserRepository.getUserByEmail(email)
+        if user is None:
+            return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 404
+        else:
+            token: str = Utils.createLink(140)
+            UserRepository.createForgottenPasswordToken(user, token)
+            Utils.sendPasswordForgottenEmail(user.name, user.email, token)
+            return Utils.createSuccessResponse(True, Constants.CREATED), 200
+
+    @classmethod
+    def getUserByPasswordForgottenToken(cls, token):
+        user: User = UserRepository.getUserByPasswordForgottenToken(token)
+        if user is None:
+            return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 404
+        else:
+            return Utils.createSuccessResponse(True, user.user_id), 200
+
+    @classmethod
+    def changePassword(cls, request):
+        try:
+            UserRepository.changePassword(request['user_id'], Utils.hash(request['new_password']))
+            return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 

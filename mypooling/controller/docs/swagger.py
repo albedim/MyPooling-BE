@@ -10,9 +10,9 @@ template = {
             "url": "",
         },
         "termsOfService": "",
-        "version": "1.7.0"
+        "version": "1.7.5"
     },
-    "basePath": "/api/v_1_7_0",  # base bash for blueprint registration
+    "basePath": "/api/v_1_7_5",  # base bash for blueprint registration
     "schemes": [
         "http",
         "https"
