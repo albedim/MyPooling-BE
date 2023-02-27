@@ -14,8 +14,8 @@ from mypooling.model.entity.User import User
 class RideRepository():
 
     @classmethod
-    def getRides(cls, tripId) -> list[Ride]:
-        rides: list[Ride] = sql.session.query(Ride).filter(Ride.trip_id == tripId).all()
+    def getRides(cls, tripId, stepId: int) -> list[Ride]:
+        rides: list[Ride] = sql.session.query(Ride).filter(Ride.trip_id == tripId).filter(Ride.step_id == stepId).all()
         return rides
 
     @classmethod

@@ -10,18 +10,11 @@ parameters:
     schema:
       type: object
       required:
-      -  "start_x"
-      -  "start_y"
       -  "departure_date"
       -  "owner_id"
       -  "slots"
+      -  "mode"
       properties:
-        start_x:
-          type: "double"
-          example: 41.156716
-        start_y:
-          type: "double"
-          example: 41.367161
         departure_date:
           type: "string"
           example: "2023,12,04,12,58"
@@ -31,6 +24,9 @@ parameters:
         slots:
           type: "int"
           example: 4
+        mode:
+          type: "string"
+          example: "home/building"
 responses:
   200:
     description: When a trip gets successfully added

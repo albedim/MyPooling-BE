@@ -46,7 +46,6 @@ class TripRepository():
                  "JOIN steps "
                  "ON trips.trip_id = steps.trip_id "
                  "WHERE CAST(trips.departure_date as date) = :departureDate "
-                 "AND trips.finished = false "
                  "AND mode = :mode "
                  "HAVING distance < :strength")
         ).params(x=x, y=y, departureDate=departureDate, strength=strength / 10, mode=mode).all()
@@ -59,8 +58,7 @@ class TripRepository():
                  "FROM trips "
                  "JOIN rides "
                  "ON trips.trip_id = rides.trip_id "
-                 "WHERE rides.user_id = :userId "
-                 "AND trips.finished = false")
+                 "WHERE rides.user_id = :userId")
         ).params(userId=userId).all()
         return trips
 
@@ -70,7 +68,7 @@ class TripRepository():
         return lastTrip
 
     @classmethod
-    def addTrip(cls, departure_date, start_x, start_y, owner_id, slots, mode):
-        trip: Trip = Trip(departure_date, start_x, start_y, owner_id, slots, mode)
+    def addTrip(cls, departure_date, owner_id, slots, mode):
+        trip: Trip = Trip(departure_date, owner_id, slots, mode)
         sql.session.add(trip)
         sql.session.commit()

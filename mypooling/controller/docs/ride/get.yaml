@@ -3,9 +3,13 @@ Get rides of trip
 tags:
   - Ride
 parameters:
-  - in: path
+  - in: query
     name: tripId
-    description: The path should contain the trip id
+    description: The param should contain the trip id
+    required: true
+  - in: query
+    name: stepId
+    description: The param should contain the step id
     required: true
 
 responses:

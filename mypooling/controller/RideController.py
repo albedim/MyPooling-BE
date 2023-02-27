@@ -16,12 +16,8 @@ def add():
     return RideService.addRide(request.json)
 
 
-@ride.route("/get/<tripId>", methods=['GET'])
+@ride.route("/get", methods=['GET'])
 @cross_origin()
 @swag_from('./docs/ride/get.yaml')
-def get(tripId: int):
-    return RideService.getRiders(tripId)
-
-
-
-
+def get():
+    return RideService.getRiders(int(request.args.get('tripId')), int(request.args.get('stepId')))

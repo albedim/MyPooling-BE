@@ -30,9 +30,9 @@ class RideService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 404), 404
 
     @classmethod
-    def getRiders(cls, tripId: int):
+    def getRiders(cls, tripId: int, stepId: int):
         try:
-            rides: list[Ride] = RideRepository.getRides(tripId)
+            rides: list[Ride] = RideRepository.getRides(tripId, stepId)
             result: list[dict] = []
             for ride in rides:
                 user: dict = UserService.getUser(ride.user_id)

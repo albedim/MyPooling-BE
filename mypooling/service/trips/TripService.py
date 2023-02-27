@@ -33,7 +33,7 @@ class TripService():
                     request['departure_date'].split(',')[2] + ' ' +
                     request['departure_date'].split(',')[3] + ':' +
                     request['departure_date'].split(',')[4]
-                ), request['start_x'], request['start_y'], request['owner_id'], request['slots'], request['mode']
+                ), request['owner_id'], request['slots'], request['mode']
             )
             return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id), 200
         except KeyError:
@@ -62,15 +62,6 @@ class TripService():
             return jsonify(result), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
-
-    @classmethod
-    def getRange(cls, x, y, strength):
-        return {
-            'min_x': x - (00.001000 * strength),
-            'max_x': x + (00.001000 * strength),
-            'min_y': y - (00.001000 * strength),
-            'max_y': y + (00.001000 * strength)
-        }
 
     @classmethod
     def getRidingTrips(cls, userId):
