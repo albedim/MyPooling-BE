@@ -10,15 +10,18 @@
 class Constants():
 
     NOT_FOUND: str = "This resource was not found"
-    WELCOME_EMAIL: str = "Hey {name}! \n Benvenuto nella nostra piattaforma"
-    PASSWORD_FORGOTTEN_EMAIL: str = "Hey {name}! \n Ecco il link per recuperare la tua password: http://192.168.1.10:3000/recovery_password?token={token}"
     CREATED: str = "Created"
-    INVALID_REQUEST: str = "Invalid request"
-    EMAIL = "dimaio.albe@gmail.com"
-    PASSWORD = "lixfrzouclkjserb"
     RIDE_ADDED: str = "{username} ha appena prenotato un tuo passaggio"
     FULL_SLOTS = "You can't add more"
     ALREADY_CREATED = "This resource was already created"
+    INVALID_REQUEST: str = "Invalid request"
+
+    EMAIL = "dimaio.albe@gmail.com"
+    PASSWORD = "lixfrzouclkjserb"
+    FRONTEND_URL = 'http://192.168.1.10:3000/MyPooling-FE'
+
+    WELCOME_EMAIL: str = "Hey {name}! \n Benvenuto nella nostra piattaforma"
+    PASSWORD_FORGOTTEN_EMAIL: str = "Hey {name}! \n Ecco il link per recuperare la tua password: " + FRONTEND_URL + "/recovery_password?token={token}"
 
     PAGE_NOT_FOUND = 'This page was not found. See our documentation: https://albedim.pythonanywhere.com'
     PAGE_METHOD_NOT_ALLOWED = 'Method not allowed. See our documentation: https://albedim.pythonanywhere.com'

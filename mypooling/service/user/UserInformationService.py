@@ -6,6 +6,14 @@ from mypooling.service.FeedbackService import FeedbackService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 21/02/23
+# Created at: 14:34
+# Version: 1.0.0
+# Description: This is the class for the user information service
+#
+
 
 class UserInformationService():
 

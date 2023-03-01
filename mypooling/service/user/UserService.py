@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from flask_jwt_extended import create_access_token, jwt_required
 
 from mypooling.model.entity.User import User
@@ -25,7 +27,8 @@ class UserService():
                 Utils.hash(request['password'])
             )
             if user is not None:
-                return Utils.createSuccessResponse(True, create_access_token(identity=user.toJson()))
+                return Utils.createSuccessResponse(True, create_access_token(
+                    identity=user.toJson(), expires_delta=timedelta(weeks=4)))
             else:
                 return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 404
         except KeyError:

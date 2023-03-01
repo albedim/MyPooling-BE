@@ -8,21 +8,24 @@ from mypooling.service.user.UserService import UserService
 from mypooling.utils.Constants import Constants
 from mypooling.utils.Utils import Utils
 
+#
+# @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
+# Created on: 24/02/23
+# Created at: 23:14
+# Version: 1.0.0
+# Description: This is the class for the user notification service
+#
+
 
 class NotificationService():
 
     @classmethod
-    def notify(cls, request):
-        try:
-            body: str = ""
-            if request['body'] == 'RIDE_ADDED':
-                body = Constants.RIDE_ADDED.replace("{username}", UserRepository.getUserById(request['receiver_id']).username)
-            else:
-                return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
-            NotificationRepository.notify(request['receiver_id'], body)
-            return Utils.createSuccessResponse(True, Constants.CREATED), 200
-        except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+    def notify(cls, notificationType, receiverId):
+        if notificationType == 'RIDE_ADDED':
+            NotificationRepository.notify(
+                receiverId,
+                Constants.RIDE_ADDED.replace("{username}", UserRepository.getUserById(receiverId).username)
+            )
 
     @classmethod
     def getAll(cls, userId):

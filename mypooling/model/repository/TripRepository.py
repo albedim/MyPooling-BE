@@ -20,6 +20,11 @@ class TripRepository():
         return trips
 
     @classmethod
+    def get(cls, tripId):
+        trip: Trip = sql.session.query(Trip).filter(Trip.trip_id == tripId).first()
+        return trip
+
+    @classmethod
     def addSlot(cls, tripId):
         trip: Trip = sql.session.query(Trip).filter(Trip.trip_id == tripId).first()
         trip.used_slots += 1

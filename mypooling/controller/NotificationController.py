@@ -10,13 +10,6 @@ from mypooling.utils.Utils import Utils
 notification: Blueprint = Blueprint('NotificationService', __name__, url_prefix=Utils.getURL('notification'))
 
 
-@notification.route("/add", methods=['POST'])
-@cross_origin()
-@swag_from('./docs/notification/add.yaml')
-def add():
-    return NotificationService.notify(request.json)
-
-
 @notification.route("/mark_as_seen/<notificationId>", methods=['PUT'])
 @cross_origin()
 @swag_from('./docs/notification/mark_as_seen.yaml')

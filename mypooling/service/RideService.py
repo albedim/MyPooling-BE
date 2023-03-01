@@ -1,5 +1,7 @@
 from mypooling.model.entity.Ride import Ride
 from mypooling.model.repository.RideRepositroy import RideRepository
+from mypooling.model.repository.TripRepository import TripRepository
+from mypooling.service.NotificationService import NotificationService
 from mypooling.service.trips.SlotsService import SlotsService
 from mypooling.service.user.UserService import UserService
 from mypooling.utils.Constants import Constants
@@ -25,6 +27,7 @@ class RideService():
                 return Utils.createWrongResponse(False, Constants.FULL_SLOTS, 412), 412
             RideRepository.addRide(request['user_id'], request['step_id'], request['trip_id'])
             SlotsService.addSlot(request['trip_id'])
+            NotificationService.notify('RIDE_ADDED', TripRepository.get(request['trip_id']).owner_id)
             return Utils.createSuccessResponse(True, Constants.CREATED), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 404), 404

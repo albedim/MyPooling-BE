@@ -18,6 +18,7 @@ config = {
     "1.6.5 - Notifications added",
     "1.7.0 - Notifications improved",
     "1.7.5 - Start coordinates were removed from trip entity",
-    "1.8.0 - Forget Password System has been added"
+    "1.8.0 - Forget Password System has been added",
+    "1.8.5 - Notifications get sent correctly now"
   ]
 }

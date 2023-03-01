@@ -12,7 +12,7 @@ from mypooling.configuration.config import sql
 class Step(sql.Model):
     __tablename__ = 'steps'
     step_id: int = sql.Column(sql.Integer, primary_key=True)
-    name: str = sql.Column(sql.String(40), nullable=False)
+    name: str = sql.Column(sql.String(540), nullable=False)
     x: float = sql.Column(sql.Double, nullable=False)
     y: float = sql.Column(sql.Double, nullable=False)
     place_id: int = sql.Column(sql.Integer, nullable=False)
