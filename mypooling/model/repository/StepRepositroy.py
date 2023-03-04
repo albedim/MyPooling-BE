@@ -24,8 +24,8 @@ class StepRepository():
         return ride
 
     @classmethod
-    def addStep(cls, placeId, name, x, y, tripId):
-        step: Step = Step(placeId, name, x, y, tripId)
+    def addStep(cls, placeId, time, name, x, y, tripId):
+        step: Step = Step(placeId, time, name, x, y, tripId)
         sql.session.add(step)
         sql.session.commit()
 

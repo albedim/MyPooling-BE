@@ -1,3 +1,5 @@
+from sqlalchemy import asc, desc
+
 from mypooling.configuration.config import sql
 from mypooling.model.entity.Feedback import Feedback
 
@@ -20,7 +22,7 @@ class FeedbackRepository():
 
     @classmethod
     def getFeedbacks(cls, userId):
-        feedbacks: list[Feedback] = sql.session.query(Feedback).filter(Feedback.receiver_id == userId).all()
+        feedbacks: list[Feedback] = sql.session.query(Feedback).filter(Feedback.receiver_id == userId).order_by(desc(Feedback.feedback_id)).all()
         return feedbacks
 
 

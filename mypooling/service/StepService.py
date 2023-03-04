@@ -17,7 +17,7 @@ class StepService():
     def addStep(cls, tripId: int, request: dict):
         try:
             for o in request:
-                StepRepository.addStep(o['place_id'], o['name'], o['x'], o['y'], tripId)
+                StepRepository.addStep(o['place_id'], o['time'], o['name'], o['x'], o['y'], tripId)
             return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

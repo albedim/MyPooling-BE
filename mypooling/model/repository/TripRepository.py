@@ -16,7 +16,7 @@ class TripRepository():
 
     @classmethod
     def getOwnTrips(cls, ownerId) -> list[Trip]:
-        trips: list[Trip] = sql.session.query(Trip).filter(Trip.owner_id == ownerId).all()
+        trips: list[Trip] = sql.session.query(Trip).filter(Trip.owner_id == ownerId).order_by(desc(Trip.trip_id)).all()
         return trips
 
     @classmethod
@@ -63,7 +63,8 @@ class TripRepository():
                  "FROM trips "
                  "JOIN rides "
                  "ON trips.trip_id = rides.trip_id "
-                 "WHERE rides.user_id = :userId")
+                 "WHERE rides.user_id = :userId "
+                 "ORDER BY trips.trip_id DESC")
         ).params(userId=userId).all()
         return trips
 

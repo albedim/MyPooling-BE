@@ -12,14 +12,16 @@ from mypooling.configuration.config import sql
 class Step(sql.Model):
     __tablename__ = 'steps'
     step_id: int = sql.Column(sql.Integer, primary_key=True)
+    time: str = sql.Column(sql.Time, nullable=False)
     name: str = sql.Column(sql.String(540), nullable=False)
     x: float = sql.Column(sql.Double, nullable=False)
     y: float = sql.Column(sql.Double, nullable=False)
     place_id: int = sql.Column(sql.Integer, nullable=False)
     trip_id: int = sql.Column(sql.Integer, sql.ForeignKey('trips.trip_id'), nullable=False)
 
-    def __init__(self, place_id, name, x, y, trip_id):
+    def __init__(self, place_id, time, name, x, y, trip_id):
         self.name = name
+        self.time = time
         self.x = x
         self.y = y
         self.place_id = place_id
@@ -28,6 +30,7 @@ class Step(sql.Model):
     def toJson(self):
         return {
             'step_id': self.step_id,
+            'time': str(self.time),
             'name': self.name,
             'x': self.x,
             'y': self.y,

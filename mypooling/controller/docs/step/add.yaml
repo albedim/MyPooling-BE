@@ -12,6 +12,9 @@ parameters:
       items:
         type: object
         properties:
+          time:
+            type: "str"
+            example: 12:54
           x:
             type: "double"
             example: 41.145166

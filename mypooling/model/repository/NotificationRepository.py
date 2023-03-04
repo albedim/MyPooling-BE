@@ -1,4 +1,4 @@
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 
 from mypooling.configuration.config import sql
 from mypooling.model.entity.Notification import Notification
@@ -27,5 +27,5 @@ class NotificationRepository():
     @classmethod
     def getAll(cls, userId):
         notifications: list[Notification] = sql.session.query(Notification).filter(
-            Notification.receiver_id == userId).order_by(desc(Notification.notification_id)).all()
+            Notification.receiver_id == userId).order_by(asc(Notification.seen)).all()
         return notifications
