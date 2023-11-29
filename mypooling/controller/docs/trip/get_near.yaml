@@ -25,8 +25,8 @@ parameters:
       type: int
     allowReserved: true
   - in: query
-    name: departure_date
-    description: It should contain the departure_date
+    name: date
+    description: It should contain the date
     required: true
     schema:
       type: string

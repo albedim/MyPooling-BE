@@ -15,7 +15,7 @@ class User(sql.Model):
     name: str = sql.Column(sql.String(20), nullable=False)
     email: str = sql.Column(sql.String(40), nullable=False)
     password: str = sql.Column(sql.String(40), nullable=False)
-    age: int = sql.Column(sql.Integer, nullable=False)
+    birthday: int = sql.Column(sql.Date, nullable=False)
     place: str = sql.Column(sql.String(40), nullable=False)
     bio: str = sql.Column(sql.String(150), nullable=True)
     password_forgotten_token: str = sql.Column(sql.String(540), nullable=True)

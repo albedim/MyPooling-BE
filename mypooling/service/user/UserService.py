@@ -55,7 +55,6 @@ class UserService():
                     request['place'],
                     Utils.hash(request['password'])
                 )
-                Utils.sendWelcomeEmail(request['name'], request['email'])
                 return Utils.createSuccessResponse(True, Constants.CREATED)
             else:
                 return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 409), 409

@@ -10,6 +10,7 @@
 class Constants():
 
     NOT_FOUND: str = "This resource was not found"
+    NOT_ENOUGH_PERMISSIONS: str = "You don't have the permissions to perform this action"
     CREATED: str = "Created"
     RIDE_ADDED: str = "{username} ha appena prenotato un tuo passaggio"
     FULL_SLOTS = "You can't add more"

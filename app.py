@@ -1,8 +1,12 @@
 from flasgger import Swagger
 from flask_jwt_extended import JWTManager
-
 from mypooling.configuration.config import app, sql
-from mypooling.controller import UserController, RideController, StepController, TripController, FeedbackController, \
+from mypooling.controller import \
+    UserController, \
+    RideController, \
+    StepController, \
+    TripController, \
+    FeedbackController, \
     NotificationController
 from mypooling.controller.docs.swagger import swagger_config, template
 
@@ -26,4 +30,4 @@ def create_app():
 
 
 if __name__ == '__main__':
-    create_app().run(host="192.168.1.10")
+    create_app().run()

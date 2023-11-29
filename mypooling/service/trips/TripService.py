@@ -25,19 +25,16 @@ class TripService():
 
     @classmethod
     def addTrip(cls, request: dict):
-        try:
-            TripRepository.addTrip(
-                datetime.datetime.fromisoformat(
-                    request['departure_date'].split(',')[0] + '-' +
-                    request['departure_date'].split(',')[1] + '-' +
-                    request['departure_date'].split(',')[2] + ' ' +
-                    request['departure_date'].split(',')[3] + ':' +
-                    request['departure_date'].split(',')[4]
-                ), request['owner_id'], request['slots'], request['mode']
-            )
-            return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id), 200
-        except KeyError:
-            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+        TripRepository.addTrip(
+            datetime.datetime.fromisoformat(
+                request['date'].split(',')[0] + '-' +
+                request['date'].split(',')[1] + '-' +
+                request['date'].split(',')[2] + ' ' +
+                request['date'].split(',')[3] + ':' +
+                request['date'].split(',')[4]
+            ), request['owner_id'], request['slots'], request['mode']
+        )
+        return Utils.createSuccessResponse(True, TripRepository.getLastTripOf(request['owner_id']).trip_id), 200
 
     @classmethod
     def getOwnTrips(cls, ownerId: int):
@@ -52,13 +49,24 @@ class TripService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 200
 
     @classmethod
-    def getNearTrips(cls, x: float, y: float, strength: float, departure_date: str, mode):
+    def getNearTrips(cls, userId: int, x: float, y: float, strength: float, date: str, mode):
         try:
-            rows: list = TripRepository.getNearTrips(departure_date.replace(",", "-", 2), x, y, strength, mode)
+            # trips
+            rows: list = TripRepository.getNearTrips(date.replace(",", "-", 2), x, y, strength, mode)
             result: list[dict] = []
             for row in rows:  # row has now two objects
-                owner: dict = UserService.getUser(row[0].owner_id)
-                result.append(row[0].toJson_Step_Owner(owner, row[1].toJson()))
+                if row[0].owner_id != userId:
+                    owner: dict = UserService.getUser(row[0].owner_id)  # trip owner
+                    steps: list = StepService.getSteps(row[0].trip_id)  # trip's steps
+                    finalSteps = []
+                    for step in steps:
+                        if step.step_id == row[1].step_id:  # if this step is the nearest one
+                            finalSteps.append(step.toJson_Nearest(True))
+                        else:
+                            finalSteps.append(step.toJson_Nearest(False))
+                    result.append(row[0].toJson_Steps_Owner(owner, cls.sortByNearest(finalSteps)))
+                else:
+                    return Utils.createWrongResponse(False, Constants.NOT_ENOUGH_PERMISSIONS, 306), 306
             return jsonify(result), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
@@ -76,3 +84,20 @@ class TripService():
             return jsonify(result), 200
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+
+    @classmethod
+    def sortByNearest(cls, steps):
+        finalSteps = []
+        nearestStep = None
+        # append to finalSteps the nearest step
+        for step in steps:
+            if step['nearest']:
+                finalSteps.append(step)
+                nearestStep = step
+        # append to finalSteps the steps which are not nearest
+        for step in steps:
+            if step != nearestStep:
+                finalSteps.append(step)
+
+        return finalSteps
+

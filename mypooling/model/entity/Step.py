@@ -17,10 +17,12 @@ class Step(sql.Model):
     x: float = sql.Column(sql.Double, nullable=False)
     y: float = sql.Column(sql.Double, nullable=False)
     place_id: int = sql.Column(sql.Integer, nullable=False)
+    details: str = sql.Column(sql.String(540), nullable=False)
     trip_id: int = sql.Column(sql.Integer, sql.ForeignKey('trips.trip_id'), nullable=False)
 
-    def __init__(self, place_id, time, name, x, y, trip_id):
+    def __init__(self, place_id, details, time, name, x, y, trip_id):
         self.name = name
+        self.details = details
         self.time = time
         self.x = x
         self.y = y
@@ -30,10 +32,24 @@ class Step(sql.Model):
     def toJson(self):
         return {
             'step_id': self.step_id,
+            'details': self.details,
             'time': str(self.time),
             'name': self.name,
             'x': self.x,
             'y': self.y,
             'place_id': self.place_id,
             'trip_id': self.trip_id
+        }
+
+    def toJson_Nearest(self, nearest):
+        return {
+            'step_id': self.step_id,
+            'details': self.details,
+            'time': str(self.time),
+            'name': self.name,
+            'x': self.x,
+            'y': self.y,
+            'place_id': self.place_id,
+            'trip_id': self.trip_id,
+            'nearest': nearest
         }
